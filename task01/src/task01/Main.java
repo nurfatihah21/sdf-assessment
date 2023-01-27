@@ -75,7 +75,7 @@ public class Main {
 
         // print top 10 freq
         sortCount = new ArrayList<>(sortCount.subList(0, 9));
-        System.out.println("\nThe 10 most frequent words are:");
+        System.out.println("\nThe 10 most frequent words and its term frequencies are:");
         System.out.println(sortCount);
 
         br.close();
