@@ -4,7 +4,6 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.stream.*;
 
 public class Main {
 
@@ -38,10 +37,10 @@ public class Main {
         String lineNoBreaks = "";
         String lineProcessed = "";
         int wordCount = 0;
+        int termFreq = 0;
 
         // Storing the words and count, and for sorting
         Map<String, Integer> count = new HashMap<>();
-        LinkedHashMap<String, Integer> sortCount2 = new LinkedHashMap<>();
 
         while ((line = br.readLine()) != null) {
 
@@ -51,14 +50,19 @@ public class Main {
 
             // splitting each word and adding unique words into map
             String lineSplit[] = lineProcessed.split("[\\W+]");
+
+            // total word count in file
+            wordCount += lineSplit.length;
+
+            // add each unique word into map
             for (String w : lineSplit) {
                 if (count.containsKey(w)) {
-                    count.put(w, 1 + count.get(w));
+                    count.put(w, (1) + count.get(w));
+
                 } else {
-                    count.put(w, 1);
+                    count.put(w, (1));
                 }
             }
-            wordCount += lineSplit.length;
 
         }
 
@@ -72,7 +76,7 @@ public class Main {
 
         // print top 10 freq
         sortCount = new ArrayList<>(sortCount.subList(0, 9));
-
+        System.out.println("\nThe 10 most frequent words are:");
         System.out.println(sortCount);
 
         System.out.println("Total word count in file: " + wordCount);
