@@ -73,8 +73,6 @@ public class Main {
 
         sortCount.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        // System.out.println(sortCount);
-
         // print top 10 freq
         sortCount = new ArrayList<>(sortCount.subList(0, 9));
         System.out.println("\nThe 10 most frequent words are:");
