@@ -41,9 +41,7 @@ public class Main {
     public static void main(String[] args) {
 
         Console cons = System.console();
-
         boolean exit = false;
-
         System.out.println("Welcome.");
 
         while (!exit) {
@@ -64,11 +62,19 @@ public class Main {
                     || userInput.contains("/")))) {
 
                 String[] parameters = userInput.split(" ");
+
+                /*
+                 * if user input $last first, give num1 value of $last
+                 * if user input $last last, give num2 value of $last
+                 * if $last not input, set num1 & num2 as per numbers entered
+                 */
+
                 if (parameters[0].equals("$last")) {
                     num1 = $last;
                 } else {
                     num1 = Double.parseDouble(parameters[0]);
                 }
+
                 operator = parameters[1].charAt(0);
                 if (parameters[2].equals("$last")) {
                     num2 = $last;
