@@ -3,9 +3,8 @@ package task01;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Stream;
-
-import javax.sound.sampled.SourceDataLine;
+import java.util.Map.Entry;
+import java.util.stream.*;
 
 public class Main {
 
@@ -39,15 +38,23 @@ public class Main {
         String lineNoBreaks = "";
         String lineProcessed = "";
 
-        Map<String, Integer> count = new HashMap<>();
+        // Storing the words and count, and for sorting
+        // Map<String, Integer> count = new HashMap<>();
+        // LinkedHashMap<String, Integer> sortCount = new LinkedHashMap<>();
 
         while ((line = br.readLine()) != null) {
+
+            // remove punctuations and breaks
             lineNoBreaks = line.replaceAll("\n", "");
             lineProcessed = lineNoBreaks.toLowerCase().replaceAll("[.,:!-(){}'/\";]", "");
 
-            System.out.println(lineProcessed);
+            // System.out.println(lineProcessed);
 
+            // splitting each word and adding unique words into map
             String lineSplit[] = lineProcessed.split("[\\W+]");
+
+            Map<String, Integer> count = new HashMap<>();
+
             for (String w : lineSplit) {
                 if (count.containsKey(w)) {
                     count.put(w, 1 + count.get(w));
@@ -56,13 +63,19 @@ public class Main {
                 }
             }
 
-            LinkedHashMap<String, Integer> sortCount = new LinkedHashMap<>();
-            count.entrySet()
-                    .stream()
-                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                    .forEachOrdered(x -> sortCount.put(x.getKey(), x.getValue()));
-            System.out.println(sortCount);
+            // List<Integer> sortCount = new ArrayList<Integer>(count.values());
+
+            // Collections.sort(sortCount, Collections.reverseOrder());
+            // sortCount.sort(Comparator.reverseOrder());
+
+            Set<Map.Entry<String, Integer>> s = count.entrySet();
+
+            for (Map.Entry<String, Integer> x : s) {
+                System.out.println(x.getKey() + " - " + x.getValue());
+            }
         }
+
+        // System.out.println(sortCount);
 
         br.close();
 
