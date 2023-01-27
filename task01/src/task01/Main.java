@@ -3,6 +3,9 @@ package task01;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.util.stream.Stream;
+
+import javax.sound.sampled.SourceDataLine;
 
 public class Main {
 
@@ -28,17 +31,39 @@ public class Main {
             System.out.printf("File doesn't exist >> %s\n", fileName);
         }
 
-        // Reading the file's content
+        // Reading the file's content & processing
 
         FileReader fr = new FileReader(fileToRead);
         BufferedReader br = new BufferedReader(fr);
         String line = "";
+        String lineNoBreaks = "";
         String lineProcessed = "";
 
+        Map<String, Integer> count = new HashMap<>();
+
         while ((line = br.readLine()) != null) {
-            lineProcessed = line.toLowerCase().replaceAll("[.,:!-(){}'/\";]", "");
+            lineNoBreaks = line.replaceAll("\n", "");
+            lineProcessed = lineNoBreaks.toLowerCase().replaceAll("[.,:!-(){}'/\";]", "");
+
             System.out.println(lineProcessed);
+
+            String lineSplit[] = lineProcessed.split("[\\W+]");
+            for (String w : lineSplit) {
+                if (count.containsKey(w)) {
+                    count.put(w, 1 + count.get(w));
+                } else {
+                    count.put(w, 1);
+                }
+            }
+
+            LinkedHashMap<String, Integer> sortCount = new LinkedHashMap<>();
+            count.entrySet()
+                    .stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .forEachOrdered(x -> sortCount.put(x.getKey(), x.getValue()));
+            System.out.println(sortCount);
         }
+
         br.close();
 
     }
