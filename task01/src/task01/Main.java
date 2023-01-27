@@ -39,7 +39,7 @@ public class Main {
         String lineProcessed = "";
 
         // Storing the words and count, and for sorting
-        // Map<String, Integer> count = new HashMap<>();
+        Map<String, Integer> count = new HashMap<>();
         // LinkedHashMap<String, Integer> sortCount = new LinkedHashMap<>();
 
         while ((line = br.readLine()) != null) {
@@ -52,9 +52,6 @@ public class Main {
 
             // splitting each word and adding unique words into map
             String lineSplit[] = lineProcessed.split("[\\W+]");
-
-            Map<String, Integer> count = new HashMap<>();
-
             for (String w : lineSplit) {
                 if (count.containsKey(w)) {
                     count.put(w, 1 + count.get(w));
@@ -62,18 +59,16 @@ public class Main {
                     count.put(w, 1);
                 }
             }
-
-            // List<Integer> sortCount = new ArrayList<Integer>(count.values());
-
-            // Collections.sort(sortCount, Collections.reverseOrder());
-            // sortCount.sort(Comparator.reverseOrder());
-
-            Set<Map.Entry<String, Integer>> s = count.entrySet();
-
-            for (Map.Entry<String, Integer> x : s) {
-                System.out.println(x.getKey() + " - " + x.getValue());
-            }
         }
+
+        // Converting the HashMap into a List & sorting
+
+        List<Integer> sortCount = new ArrayList<Integer>(count.values());
+
+        Collections.sort(sortCount, Collections.reverseOrder());
+        sortCount.sort(Comparator.reverseOrder());
+
+        System.out.println(sortCount);
 
         // System.out.println(sortCount);
 
