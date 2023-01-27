@@ -62,17 +62,19 @@ public class Main {
 
         }
 
-        // Converting the HashMap into a List & sorting
+        // Converting the HashMap into a List & sorting descending
 
         ArrayList<Map.Entry<String, Integer>> sortCount = new ArrayList<>(count.entrySet());
 
         sortCount.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
-        for (Map.Entry<String, Integer> x : sortCount) {
-            System.out.println(x.getKey() + " - " + x.getValue());
-        }
+        // System.out.println(sortCount);
+
+        // print top 10 freq
+        sortCount = new ArrayList<>(sortCount.subList(0, 9));
 
         System.out.println(sortCount);
+
         System.out.println("Total word count in file: " + wordCount);
 
         br.close();
