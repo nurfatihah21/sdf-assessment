@@ -3,7 +3,6 @@ package task01;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Main {
 
@@ -12,8 +11,6 @@ public class Main {
         /*
          * to run java file, enter argument e.g. file name at the end
          */
-
-        Console cons = System.console();
 
         // User will input the file name
         // If file exists, print out 'opening'
@@ -37,10 +34,10 @@ public class Main {
         String lineNoBreaks = "";
         String lineProcessed = "";
         int wordCount = 0;
-        int termFreq = 0;
+        double termFreq = 0d;
 
         // Storing the words and count, and for sorting
-        Map<String, Integer> count = new HashMap<>();
+        Map<String, Double> count = new HashMap<>();
 
         while ((line = br.readLine()) != null) {
 
@@ -58,17 +55,21 @@ public class Main {
             for (String w : lineSplit) {
                 if (count.containsKey(w)) {
                     count.put(w, (1) + count.get(w));
-
                 } else {
-                    count.put(w, (1));
+                    count.put(w, (double) (1));
                 }
             }
 
         }
+        int finalwordcount = wordCount;
+        System.out.println("Total word count in file: " + finalwordcount);
+
+        // Term Frequency - Replace Value in Map
+        count.replaceAll((key, value) -> value / finalwordcount);
 
         // Converting the HashMap into a List & sorting descending
 
-        ArrayList<Map.Entry<String, Integer>> sortCount = new ArrayList<>(count.entrySet());
+        ArrayList<Map.Entry<String, Double>> sortCount = new ArrayList<>(count.entrySet());
 
         sortCount.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
 
@@ -78,8 +79,6 @@ public class Main {
         sortCount = new ArrayList<>(sortCount.subList(0, 9));
         System.out.println("\nThe 10 most frequent words are:");
         System.out.println(sortCount);
-
-        System.out.println("Total word count in file: " + wordCount);
 
         br.close();
 
