@@ -37,18 +37,17 @@ public class Main {
         String line = "";
         String lineNoBreaks = "";
         String lineProcessed = "";
+        int wordCount = 0;
 
         // Storing the words and count, and for sorting
         Map<String, Integer> count = new HashMap<>();
-        // LinkedHashMap<String, Integer> sortCount = new LinkedHashMap<>();
+        LinkedHashMap<String, Integer> sortCount2 = new LinkedHashMap<>();
 
         while ((line = br.readLine()) != null) {
 
             // remove punctuations and breaks
             lineNoBreaks = line.replaceAll("\n", "");
             lineProcessed = lineNoBreaks.toLowerCase().replaceAll("[.,:!-(){}'/\";]", "");
-
-            // System.out.println(lineProcessed);
 
             // splitting each word and adding unique words into map
             String lineSplit[] = lineProcessed.split("[\\W+]");
@@ -59,18 +58,22 @@ public class Main {
                     count.put(w, 1);
                 }
             }
+            wordCount += lineSplit.length;
+
         }
 
         // Converting the HashMap into a List & sorting
 
-        List<Integer> sortCount = new ArrayList<Integer>(count.values());
+        ArrayList<Map.Entry<String, Integer>> sortCount = new ArrayList<>(count.entrySet());
 
-        Collections.sort(sortCount, Collections.reverseOrder());
-        sortCount.sort(Comparator.reverseOrder());
+        sortCount.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        for (Map.Entry<String, Integer> x : sortCount) {
+            System.out.println(x.getKey() + " - " + x.getValue());
+        }
 
         System.out.println(sortCount);
-
-        // System.out.println(sortCount);
+        System.out.println("Total word count in file: " + wordCount);
 
         br.close();
 
